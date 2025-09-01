@@ -1,0 +1,18 @@
+# .htaccess в корне домена D:\openserver\ospanel\domains\Vk\.htaccess
+
+RewriteEngine On
+
+# Перенаправляем API запросы на api/index.php
+RewriteCond %{REQUEST_URI} ^/api/(.*)$
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^api/(.*)$ api/index.php [QSA,L]
+
+# Показывать ошибки для отладки
+php_flag display_errors on
+php_value error_reporting E_ALL
+php_flag log_errors on
+
+# Увеличиваем лимиты для JWT обработки
+php_value memory_limit 256M
+php_value max_execution_time 60
